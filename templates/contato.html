@@ -1,0 +1,79 @@
+<div class="row" ng-if="!emailEnviado">
+    <div class="box">
+        <div class="col-lg-12 text-center">
+            <hr/>
+            <h2 class="intro-text">Contato</h2>
+            <hr/>
+        </div>
+        <div class="col-lg-12">
+            <div class="alert alert-danger" ng-if="frmContato.nome.$error && !frmContato.nome.$valid" ng-show="frmContato.nome.$dirty">
+                <strong ng-show="frmContato.nome.$error.required">Nome é Obrigatório!</strong>
+                <strong ng-show="frmContato.nome.$error.minlength">Nome deve conter no minímo 3 caractéres!</strong>
+            </div>
+
+            <div class="alert alert-danger" ng-if="frmContato.email.$error && !frmContato.email.$valid" ng-show="frmContato.email.$dirty">
+                <strong ng-show="frmContato.email.$error.required">Email é Obrigatório!</strong>
+                <strong ng-show="frmContato.email.$error.email">Email está Inválido!</strong>
+            </div>
+
+            <div class="alert alert-danger" ng-if="frmContato.assunto.$error && !frmContato.assunto.$valid" ng-show="frmContato.assunto.$dirty">
+                <strong ng-show="frmContato.assunto.$error.required">Assunto é Obrigatório!</strong>
+                <strong ng-show="frmContato.assunto.$error.maxlength">Assunto deve conter no máximo 100 caractéres!</strong>
+            </div>
+
+            <div class="alert alert-danger" ng-if="frmContato.mensagem.$error && !frmContato.mensagem.$valid" ng-show="frmContato.mensagem.$dirty">
+                <strong ng-show="frmContato.mensagem.$error.required">Mensagem é Obrigatório!</strong>
+                <strong ng-show="frmContato.mensagem.$error.minlength">Mensagem deve conter no minímo 30 caractéres!</strong>
+                <strong ng-show="frmContato.mensagem.$error.maxlength">Mensagem deve conter no máximo 300 caractéres!</strong>
+            </div>
+
+            <div class="alert alert-danger" ng-if="emailNaoEnviado">
+                <strong>Opss!</strong> Houve um problema ao enviar o seu contato, tente mais tarde.
+            </div>
+
+            <form name="frmContato" class="form-horizontal" role="form">
+                <div class="form-group" ng-class="{ 'has-error': frmContato.nome.$invalid && frmContato.nome.$dirty}">
+                    <label for="nome" class="col-lg-2 control-label">Nome</label>
+                    <div class="col-lg-10">
+                        <input ng-model="formData.nome" ng-minlength="3" type="text" class="form-control" name="nome" placeholder="Seu Nome" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': frmContato.email.$invalid && frmContato.email.$dirty}">
+                    <label for="email" class="col-lg-2 control-label">E-Mail</label>
+                    <div class="col-lg-10">
+                        <input ng-model="formData.email" type="email" class="form-control" name="email" placeholder="Seu E-Mail" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': frmContato.assunto.$invalid && frmContato.assunto.$dirty}">
+                    <label for="assunto" class="col-lg-2 control-label">Assunto</label>
+                    <div class="col-lg-10">
+                        <input ng-model="formData.assunto" ng-maxlength="100" type="text" class="form-control" name="assunto" placeholder="Assunto"
+                            ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': frmContato.mensagem.$invalid && frmContato.mensagem.$dirty}">
+                    <label for="mensagem" class="col-lg-2 control-label">Mensagem</label>
+                    <div class="col-lg-10">
+                        <textarea ng-model="formData.mensagem" ng-minlength="30" ng-maxlength="300" class="form-control" rows="4" name="mensagem"
+                            placeholder="Sua mensagem..." ng-required="true"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" ng-disabled="!frmContato.$valid" ng-click="enviarEmail()" class="btn btn-default" ng-disabled="submitButtonDisabled">
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="emailEnviado">
+    <div class="box">
+        <div class="alert alert-success">
+            <strong>Email foi enviado com sucesso!</strong> Entraremos em contato em breve!
+        </div>
+    </div>
+</div>
